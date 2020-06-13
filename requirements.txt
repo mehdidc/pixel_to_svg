@@ -1,0 +1,6 @@
+numpy
+imageio
+scikit-image
+cairosvg
+pip+https://github.com/mehdidc/svgpathtools
+pip+https://github.com/mehdidc/pypotrace
