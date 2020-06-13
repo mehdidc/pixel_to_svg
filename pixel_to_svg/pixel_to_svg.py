@@ -36,7 +36,7 @@ def to_svg(img, seg):
         A.extend(attrs)
     return SVG(paths=P, attributes=A)
 
-def render_svg(svg):
+def render_svg(svg, width=None, height=None):
     drawing = wsvg(
         paths=svg.paths, 
         attributes=svg.attributes,
@@ -45,7 +45,7 @@ def render_svg(svg):
     fd = StringIO()
     drawing.write(fd)
     fo = BytesIO()
-    svg2png(bytestring=fd.getvalue(), write_to=fo)
+    svg2png(bytestring=fd.getvalue(), write_to=fo, output_width=width, output_height=height)
     fo.seek(0)
     return imread(fo, format="png")
 
