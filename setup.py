@@ -12,17 +12,23 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'raster_to_svg'
+NAME = 'pixel_to_svg'
 DESCRIPTION = 'My short description for my project.'
-URL = 'https://github.com/mehdidc/raster_to_svg'
+URL = 'https://github.com/mehdidc/pixel_to_svg'
 EMAIL = 'mehdicherti@gmail.com'
 AUTHOR = 'Mehdi Cherti'
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
-REQUIRED = open("requirements.txt").read().split("\n")
-
+REQUIRED = [
+    "numpy",
+    "imageio",
+    "scikit-image",
+    "cairosvg",
+    "svgpathtools",
+    "pypotrace",
+]
 # What packages are optional?
 EXTRAS = {
     # 'fancy feature': ['django'],

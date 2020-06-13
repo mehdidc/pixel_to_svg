@@ -1,10 +1,10 @@
 import numpy as np
 from skimage.io import imread
 import matplotlib.pyplot as plt
-from raster_to_svg  import graph_seg
-from raster_to_svg import render_svg
-from raster_to_svg import save_svg
-from raster_to_svg import to_svg
+from pixel_to_svg  import graph_seg
+from pixel_to_svg import render_svg
+from pixel_to_svg import save_svg
+from pixel_to_svg import to_svg
 img = imread("flower.jpg")
 if img.shape[2] == 4:
     img = img[:,:,0:3]
