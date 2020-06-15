@@ -15,23 +15,37 @@ from cairosvg import svg2png
 
 SVG = namedtuple("SVG", "paths attributes")
 
-def to_svg(img, seg):
-    nb = seg.max() + 1
+def to_svg(img, seg, nb_layers=None, palette=None, opacity=None):
+    if len(seg.shape) == 2:
+        if nb_layers is None:
+            nb_layers = seg.max() + 1
+        masks = np.zeros((seg.shape[0], seg.shape[1], nb_layers)).astype(bool)
+        m = masks.reshape((-1,nb_layers))
+        s = seg.reshape((-1,))
+        m[np.arange(len(m)), s] = 1
+        assert np.all(masks.argmax(axis=2) == seg)
+    else:
+        masks = seg
     P = []
     A = []
-    for layer in range(nb):
-        mask = (seg == layer)
+    for layer in range(masks.shape[2]):
+        mask = masks[:,:,layer]
         if np.all(mask==0):
             continue
         paths, attrs, svg_attrs = binary_image_to_svg2(mask)
         for attr in attrs:
-            r, g, b, *rest = img[mask].mean(axis=0)
+            if palette is None:
+                r, g, b, *rest = img[mask].mean(axis=0)
+            else:
+                r, g, b = palette[layer]
             r = int(r)
             g = int(g)
             b = int(b)
             col = f"rgb({r},{g},{b})"
             attr["stroke"] = col
             attr["fill"] = col
+            if opacity:
+                attr["opacity"] = opacity[layer]
         P.extend(paths)
         A.extend(attrs)
     return SVG(paths=P, attributes=A)
