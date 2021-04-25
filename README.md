@@ -26,7 +26,7 @@ Here are the steps:
 
 # How to use ?
 
-Please check thhe example in <https://github.com/mehdidc/pixel_to_svg/tree/master/examples>
+Please check the example in <https://github.com/mehdidc/pixel_to_svg/tree/master/examples>
 
 
 
