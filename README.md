@@ -19,9 +19,9 @@ Here are the steps to install pypotrace:
 Once pypotrace is available, you can use this repo:
 Here are the steps:
 
-1. https://github.com/mehdidc/pixel_to_svg
-2. cd pixel_to_svg
-3. python setup.py install
+1. `git clone https://github.com/mehdidc/pixel_to_svg`
+2. `cd pixel_to_svg`
+3. `python setup.py install`
 
 
 # How to use ?
