@@ -16,8 +16,8 @@ Here are the steps to install pypotrace:
 6. `pip install .`
 
 
-Once pypotrace is available, you can use this repo:
-Here are the steps:
+Once pypotrace is available, you can install this repo.
+Here are the steps: 
 
 1. `git clone https://github.com/mehdidc/pixel_to_svg`
 2. `cd pixel_to_svg`
