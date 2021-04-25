@@ -24,7 +24,7 @@ Here are the steps:
 3. python setup.py install
 
 
-# How to use
+# How to use ?
 
 Please check thhe example in <https://github.com/mehdidc/pixel_to_svg/tree/master/examples>
 
