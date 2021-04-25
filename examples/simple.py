@@ -20,8 +20,7 @@ seg = graph_seg(
     thresh=80,
 )
 # Given a segmented image, turn it to SVG.
-# This internally uses `potrace`  for each
-# pixel catgory obtained from segmentation
+# This internally uses `potrace`.
 svg = to_svg(img, seg)
 
 # Convert SVG back to raster to display it
