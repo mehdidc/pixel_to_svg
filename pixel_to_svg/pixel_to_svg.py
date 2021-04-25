@@ -71,6 +71,8 @@ def wsvg(paths=None, colors=None,
           margin_size=0.1, mindim=600, dimensions=None,
           viewbox=None, text=None, text_path=None, font_size=None,
           attributes=None, svg_attributes=None, svgwrite_debug=False, paths2Drawing=False):
+    #NB: this code is originally from <https://github.com/mathandy/svgpathtools>.
+    # Thanks tho @mathandy
     """Convenience function; identical to disvg() except that
     openinbrowser=False by default.  See disvg() docstring for more info."""
     return disvg(paths, colors=colors, filename=filename,
@@ -104,6 +106,11 @@ def binary_image_to_svg(seg):
     return paths
 
 def binary_image_to_svg2(mask):
+    """
+    same as binary_image_to_svg, but use `pypotrace`
+    instead of calling `potrace` from shell
+    it is more convenient and faster, this way
+    """
     import potrace
     bmp = potrace.Bitmap(mask)
     bmp.trace()
@@ -117,6 +124,11 @@ def binary_image_to_svg2(mask):
 
 
 def graph_seg(img, max_dist=200, thresh=80, sigma=255.0):
+    """
+    segment an image using quickshift and merge_hierarchical
+    from scikit-image. In principle, any segmentation method
+    can be used, this is just one example.
+    """
     img = img.astype("float")
     seg = segmentation.quickshift(
         img,
@@ -140,7 +152,11 @@ def graph_seg(img, max_dist=200, thresh=80, sigma=255.0):
 
 
 def _weight_mean_color(graph, src, dst, n):
-    """Callback to handle merging nodes by recomputing mean color.
+    """
+    NB: this code is originally from <https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_rag_merge.html>.
+    Thanks to scikit-image authors.
+    
+    Callback to handle merging nodes by recomputing mean color.
 
     The method expects that the mean color of `dst` is already computed.
 
@@ -166,7 +182,11 @@ def _weight_mean_color(graph, src, dst, n):
 
 
 def _merge_mean_color(graph, src, dst):
-    """Callback called before merging two nodes of a mean color distance graph.
+    """
+     NB: this code is originally from <https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_rag_merge.html>.
+    Thanks to scikit-image authors.
+
+    Callback called before merging two nodes of a mean color distance graph.
 
     This method computes the mean color of `dst`.
 
@@ -182,22 +202,3 @@ def _merge_mean_color(graph, src, dst):
     graph.nodes[dst]['mean color'] = (graph.nodes[dst]['total color'] /
                                       graph.nodes[dst]['pixel count'])
 
-
-
-
-if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-    from skimage.transform import resize
-    img = imread("bird.png").astype("float")
-    img = resize(img, (256,256), preserve_range=True)
-    img = img[:,:,0:3]
-    plt.imshow(img/255)
-    plt.show()
-    seg = graph_seg(img)
-    plt.imshow(seg, cmap="tab20c")
-    plt.show()
-    svg = to_svg(img, seg)
-    # save_svg(svg, out="out.svg")
-    img = render_svg(svg)
-    plt.imshow(img)
-    plt.show()
