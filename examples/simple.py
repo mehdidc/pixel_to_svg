@@ -9,8 +9,8 @@ img = imread("flower.jpg")
 if img.shape[2] == 4:
     img = img[:,:,0:3]
     
-# turn a raster image into segmentation
-# i.e., each pixel is mapping to a category.
+# segmentation step.
+# here each pixel is mapped to a category.
 # this internally uses quickshift and hierarchical_merge
 # from scikit-image (see the code for more info). 
 # In principle, any segmentation method can be used
